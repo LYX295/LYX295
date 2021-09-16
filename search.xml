@@ -8,7 +8,8 @@
   <entry>
     <title></title>
     <url>/2021/09/15/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</url>
-    <content><![CDATA[<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a><strong>数据结构</strong></h1><p>&lt;! – more – &gt;</p>
+    <content><![CDATA[<p> <strong>数据结构</strong></p>
+<p>&lt;! – more – &gt;</p>
 <h2 id="1-线性表及其应用"><a href="#1-线性表及其应用" class="headerlink" title="1.线性表及其应用"></a>1.线性表及其应用</h2><h3 id="1-1什么是线性表"><a href="#1-1什么是线性表" class="headerlink" title="1.1什么是线性表"></a>1.1什么是线性表</h3><p>​            <strong>“线性表(Linear List)”：由同类型数据元素构成有序序列的线性结构</strong> </p>
 <p>​             <strong>表中元素个数称为线性表的长度</strong> </p>
 <p>​             <strong>线性表没有元素时，称为空表</strong> </p>
