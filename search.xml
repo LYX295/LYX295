@@ -5,4 +5,216 @@
     <url>/2021/03/28/hello-world/</url>
     <content><![CDATA[]]></content>
   </entry>
+  <entry>
+    <title></title>
+    <url>/2021/09/15/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a><strong>数据结构</strong></h1><p>&lt;! – more – &gt;</p>
+<h2 id="1-线性表及其应用"><a href="#1-线性表及其应用" class="headerlink" title="1.线性表及其应用"></a>1.线性表及其应用</h2><h3 id="1-1什么是线性表"><a href="#1-1什么是线性表" class="headerlink" title="1.1什么是线性表"></a>1.1什么是线性表</h3><p>​            <strong>“线性表(Linear List)”：由同类型数据元素构成有序序列的线性结构</strong> </p>
+<p>​             <strong>表中元素个数称为线性表的长度</strong> </p>
+<p>​             <strong>线性表没有元素时，称为空表</strong> </p>
+<p>​             <strong>表起始位置称表头，表结束位置称表尾</strong></p>
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210726103055151.png" alt="A"></p>
+<p>类型名称：线性表（List）    数据对象集：线性表是 n (≥0)个元素构成的有序序列( a1 , a2 , ……,an )</p>
+<p> 操作集：线性表List，整数i表示位置</p>
+<h3 id="1-2线性表的顺序存储结构操作主要有："><a href="#1-2线性表的顺序存储结构操作主要有：" class="headerlink" title="1.2线性表的顺序存储结构操作主要有："></a>1.2线性表的顺序存储结构操作主要有：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">typedef struct LNode *List;</span><br><span class="line">struct LNode&#123; </span><br><span class="line">ElementType Data[MAXSIZE]; </span><br><span class="line"> int Last;</span><br><span class="line">&#125; ; </span><br><span class="line">struct LNode L;</span><br><span class="line">List PtrL;</span><br><span class="line">下标i 0 1 …… i-1 i …… n-1 …… MAXSIZE-1</span><br><span class="line">Data a1 a2 …… ai ai+1 …… an …… -</span><br><span class="line">Last</span><br><span class="line">访问下标为 i 的元素：L.Data[i] 或 PtrL-&gt;Data[i]</span><br><span class="line">线性表的长度：L.Last+1 或 PtrL-&gt;Last+1</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>初始化（建立空的顺序表）</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">List MakeEmpty( )</span><br><span class="line">&#123; List PtrL;</span><br><span class="line"> PtrL &#x3D; (List )malloc( sizeof(struct LNode) );&#x2F;&#x2F;分配一段新的空间</span><br><span class="line"> PtrL-&gt;Last &#x3D; -1; </span><br><span class="line"> return PtrL;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p> 2.根据位序K，返回相应元素 ；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">List MakeEmpty( )</span><br><span class="line">&#123; List PtrL;</span><br><span class="line"> PtrL &#x3D; (List )malloc( sizeof(struct LNode) );</span><br><span class="line"> PtrL-&gt;Last &#x3D; -1; </span><br><span class="line"> return PtrL;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p> 3、线性表L中查找X的第一次出现位置；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int Find( ElementType X, List PtrL )</span><br><span class="line">&#123; int i &#x3D; 0;</span><br><span class="line"> while( i &lt;&#x3D; PtrL-&gt;Last &amp;&amp; PtrL-&gt;Data[i]!&#x3D; X )</span><br><span class="line"> i++;</span><br><span class="line"> if (i &gt; PtrL-&gt;Last) return -1; &#x2F;* 如果没找到，返回-1 *&#x2F;</span><br><span class="line"> else return i; &#x2F;* 找到后返回的是存储位置 *&#x2F; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4><p>4、在位序i前插入一个新元素X；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void Insert( ElementType X, int i, List PtrL )</span><br><span class="line">&#123; int j;</span><br><span class="line"> if ( PtrL-&gt;Last &#x3D;&#x3D; MAXSIZE-1 )&#123; &#x2F;* 表空间已满，不能插入*&#x2F;</span><br><span class="line"> printf(＂表满＂); </span><br><span class="line"> return; </span><br><span class="line"> &#125; </span><br><span class="line"> if ( i &lt; 1 || i &gt; PtrL-&gt;Last+2) &#123; &#x2F;*检查插入位置的合法性*&#x2F;</span><br><span class="line"> printf(＂位置不合法＂);</span><br><span class="line"> return; </span><br><span class="line"> &#125; </span><br><span class="line"> for ( j &#x3D; PtrL-&gt;Last; j &gt;&#x3D; i-1; j-- )</span><br><span class="line"> PtrL-&gt;Data[j+1] &#x3D; PtrL-&gt;Data[j]; &#x2F;*将 ai～ an倒序向后移动，就像插队一样，插进去一个后面应该依次向后移动*&#x2F;</span><br><span class="line"> PtrL-&gt;Data[i-1] &#x3D; X; &#x2F;*新元素插入*&#x2F;</span><br><span class="line"> PtrL-&gt;Last++; &#x2F;*Last仍指向最后元素*&#x2F;</span><br><span class="line"> return; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p> 5、删除指定位序i的元素；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void Delete( int i, List PtrL )</span><br><span class="line">&#123; int j;</span><br><span class="line"> if( i &lt; 1 || i &gt; PtrL-&gt;Last+1 ) &#123; &#x2F;*检查空表及删除位置的合法性*&#x2F;</span><br><span class="line"> printf (“不存在第%d个元素”, i ); </span><br><span class="line"> return ; </span><br><span class="line"> &#125;</span><br><span class="line"> for ( j &#x3D; i; j &lt;&#x3D; PtrL-&gt;Last; j++ )</span><br><span class="line"> PtrL-&gt;Data[j-1] &#x3D; PtrL-&gt;Data[j]; &#x2F;*将 ai+1～ an顺序向前移动*&#x2F;</span><br><span class="line"> PtrL-&gt;Last--; &#x2F;*Last仍指向最后元素*&#x2F; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3线性表链式存储结构及其操作"><a href="#1-3线性表链式存储结构及其操作" class="headerlink" title="1.3线性表链式存储结构及其操作"></a>1.3线性表链式存储结构及其操作</h3><h4 id="1-31链表的相关定义"><a href="#1-31链表的相关定义" class="headerlink" title="1.31链表的相关定义"></a>1.31链表的相关定义</h4><p>​            由各个结点串起来逻辑上形成的线性结构，各结点之间本身不需要存放在一段连续的内存中</p>
+<p>​            结点由数据域Data和指针域Next组成；</p>
+<p>​            数据域用来存放各种数据，指针域存放相邻结点的位置；</p>
+<p>​            第一个结点称为头结点，其数据域可为空也可存放表长等公共数据，最后一个结点的指针域指向空(NULL)</p>
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210726155356497.png"></p>
+<h4 id="1-32链表的相关操作及其原理"><a href="#1-32链表的相关操作及其原理" class="headerlink" title="1.32链表的相关操作及其原理"></a>1.32链表的相关操作及其原理</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">typedef struct LNode *List;</span><br><span class="line">struct LNode&#123; </span><br><span class="line"> ElementType Data; </span><br><span class="line"> List Next;</span><br><span class="line">&#125;; </span><br><span class="line">struct Lnode L;</span><br><span class="line">List PtrL;</span><br></pre></td></tr></table></figure>
+
+<p><strong>求表长</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int Length ( List PtrL )</span><br><span class="line">&#123; List p &#x3D; PtrL; &#x2F;* p指向表的第一个结点*&#x2F;</span><br><span class="line"> int j &#x3D; 0;</span><br><span class="line"> while ( p ) &#123; </span><br><span class="line"> p &#x3D; p-&gt;Next; </span><br><span class="line"> j++; &#x2F;* 当前p指向的是第 j 个结点*&#x2F;</span><br><span class="line"> &#125; </span><br><span class="line"> return j;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>按序号查找:</strong> </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">List FindKth( int K, List PtrL )</span><br><span class="line">&#123; List p &#x3D; PtrL;&#x2F;* p指向表的第一个结点*&#x2F;</span><br><span class="line"> int i &#x3D; 1;</span><br><span class="line"> while (p !&#x3D;NULL &amp;&amp; i &lt; K )&#123;</span><br><span class="line"> p &#x3D; p-&gt;Next;&#x2F;&#x2F;通过next指针将下一个结点的赋给p </span><br><span class="line"> i++; </span><br><span class="line"> &#125;</span><br><span class="line"> if ( i &#x3D;&#x3D; K ) return p; </span><br><span class="line"> &#x2F;* 找到第K个，返回指针 *&#x2F;</span><br><span class="line"> else return NULL; </span><br><span class="line"> &#x2F;* 否则返回空 *&#x2F;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p><strong>按值查找</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">List Find( ElementType X, List PtrL )</span><br><span class="line">&#123; </span><br><span class="line"> List p &#x3D; PtrL;</span><br><span class="line"> while ( p!&#x3D;NULL &amp;&amp; p-&gt;Data !&#x3D; X )</span><br><span class="line"> p &#x3D; p-&gt;Next;&#x2F;&#x2F;通过next指针将下一个结点的赋给p </span><br><span class="line"> return p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>插入</strong>（在第 i-1(1≤i≤n+1)个结点后插入一个值为X的新结点) //头插法//可以实现栈</p>
+<p>（1）声明指针p指向链表头结点，通过遍历查找查找第i-1个结点，若存在此时p指向第i-1个结点</p>
+<p>（2）生成一个新的结点s，分配空间将值赋给s-&gt;data</p>
+<p>（3）核心插入语句s-&gt;next=p-&gt;next;p-&gt;next=s;(顺序一定不能弄错)</p>
+<p>​    </p>
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210726161226703.png"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">List Insert( ElementType X, int i, List PtrL )</span><br><span class="line">&#123; List p, s;</span><br><span class="line"> if ( i &#x3D;&#x3D; 1 ) &#123; &#x2F;* 新结点插入在表头 *&#x2F;</span><br><span class="line"> s &#x3D; (List)malloc(sizeof(struct LNode)); &#x2F;*申请、填装结点*&#x2F;</span><br><span class="line"> s-&gt;Data &#x3D; X; </span><br><span class="line"> s-&gt;Next &#x3D; PtrL;</span><br><span class="line"> return s; &#x2F;*返回新表头指针*&#x2F;</span><br><span class="line"> &#125;</span><br><span class="line"> p &#x3D; FindKth( i-1, PtrL ); &#x2F;* 查找第i-1个结点 *&#x2F;</span><br><span class="line"> if ( p &#x3D;&#x3D; NULL ) &#123; &#x2F;* 第i-1个不存在，不能插入 *&#x2F;</span><br><span class="line"> printf(＂参数i错＂);</span><br><span class="line"> return NULL; </span><br><span class="line"> &#125;else &#123;</span><br><span class="line"> s &#x3D; (List)malloc(sizeof(struct LNode)); &#x2F;*申请、填装结点*&#x2F;</span><br><span class="line"> s-&gt;Data &#x3D; X; </span><br><span class="line"> s-&gt;Next &#x3D; p-&gt;Next; &#x2F;*新结点插入在第i-1个结点的后面*&#x2F;</span><br><span class="line"> p-&gt;Next &#x3D; s; </span><br><span class="line"> return PtrL;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>尾插法</strong></p>
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210801210547267.png"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">void TailCreatList(List *L) &#x2F;&#x2F;尾插法建立链表</span><br><span class="line">&#123;</span><br><span class="line">List *s, *r;&#x2F;&#x2F;s用来指向新生成的节点。r始终指向L的终端节点。</span><br><span class="line">r &#x3D; L; &#x2F;&#x2F;r指向了头节点，此时的头节点是终端节点。</span><br><span class="line">for (int i &#x3D; 0; i &lt; 10; i++) &#123;</span><br><span class="line">        s &#x3D; (struct List*) malloc(sizeof(struct List));&#x2F;&#x2F;s指向新申请的节点</span><br><span class="line">        s-&gt;data &#x3D; i; &#x2F;&#x2F;用新节点的数据域来接受i</span><br><span class="line">        r-&gt;next &#x3D; s; &#x2F;&#x2F;用r来接纳新节点</span><br><span class="line">        r &#x3D; s; &#x2F;&#x2F;r指向终端节点,第一次运行到这，在这之前r&#x3D;L;</span><br><span class="line">    &#125;</span><br><span class="line">    r-&gt;next &#x3D; NULL; &#x2F;&#x2F;元素已经全部装入链表L中</span><br><span class="line">    &#x2F;&#x2F;L的终端节点指针域为NULL，L建立完成</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>. 删除（删除链表的第 i (1≤i≤n)个位置上的结点)</strong></p>
+<p>（1）先找到链表的第 i-1个结点，用p指向； </p>
+<p>（2）再用指针s指向要被删除的结点（p的下一个结点）; </p>
+<p>（3）然后修改指针，删除s所指结点; </p>
+<p>（4）最后释放s所指结点的空间。</p>
+<p> （5） s = p-&gt;Next;  p-&gt;Next = s-&gt;Next; free(s);  </p>
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210726162919010.png"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">List Delete( int i, List PtrL )</span><br><span class="line">&#123; List p, s;</span><br><span class="line"> if ( i &#x3D;&#x3D; 1 ) &#123; &#x2F;* 若要删除的是表的第一个结点 *&#x2F;</span><br><span class="line"> s &#x3D; PtrL; &#x2F;*s指向第1个结点*&#x2F;</span><br><span class="line"> if (PtrL!&#x3D;NULL) PtrL &#x3D; PtrL-&gt;Next; &#x2F;*从链表中删除*&#x2F;</span><br><span class="line"> else return NULL;</span><br><span class="line"> free(s); &#x2F;*释放被删除结点 *&#x2F;</span><br><span class="line"> return PtrL;</span><br><span class="line"> &#125;</span><br><span class="line"> p &#x3D; FindKth( i-1, PtrL ); &#x2F;*查找第i-1个结点*&#x2F;</span><br><span class="line"> if ( p &#x3D;&#x3D; NULL ) &#123; </span><br><span class="line"> printf(“第%d个结点不存在”, i-1); return NULL; </span><br><span class="line"> &#125; else if ( p-&gt;Next &#x3D;&#x3D; NULL )&#123; </span><br><span class="line"> printf(“第%d个结点不存在”, i); return NULL; </span><br><span class="line"> &#125; else &#123;</span><br><span class="line"> s &#x3D; p-&gt;Next; &#x2F;*s指向第i个结点*&#x2F;</span><br><span class="line"> p-&gt;Next &#x3D; s-&gt;Next; &#x2F;*从链表中删除*&#x2F;</span><br><span class="line"> free(s); &#x2F;*释放被删除结点 *&#x2F;</span><br><span class="line"> return PtrL;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>整表创建</strong></p>
+<ol>
+<li><p>声明一指针p和计数器变量i</p>
+</li>
+<li><p>：初始化一空链表L</p>
+</li>
+<li><p>让L 的头结点的指针指向NULL，即建立一个带头结点的单链表</p>
+</li>
+<li><p>循环，生成一个新节点赋值给p，将数据放入p的数据域p-&gt;data，将p插入到头结点与前一结点之间（头插法）</p>
+<p>或者将p插入到前一节点的后面（尾插法）</p>
+</li>
+</ol>
+<p><strong>整表删除</strong></p>
+<ol>
+<li>声明一结点p和q</li>
+<li>将第一个结点赋给p</li>
+<li>循环  将下一个结点赋给q；释放p；将q赋给p；</li>
+</ol>
+<h3 id="1-4静态链表"><a href="#1-4静态链表" class="headerlink" title="1.4静态链表"></a>1.4静态链表</h3><p>用数组来代替指针来描述单链表，其指针域存放数组的下标</p>
+<p><strong>优势</strong> 在删除和插入时只需要移动游标即可</p>
+<p>**劣势 ** 表长难以确定（如数组），失去顺序存储结构随机储存的特性</p>
+<h3 id="1-5循环链表"><a href="#1-5循环链表" class="headerlink" title="1.5循环链表"></a>1.5循环链表</h3><p>​        单链表的终端结点的指针指向头结点形成首尾相接的环</p>
+<h3 id="1-6双向链表"><a href="#1-6双向链表" class="headerlink" title="1.6双向链表"></a>1.6双向链表</h3><p>​        每个结点的指针域包含一个指向前驱结点的指针和指向后驱结点的指针</p>
+<h3 id="1-7顺序储存结构和链式存储结构的优劣势"><a href="#1-7顺序储存结构和链式存储结构的优劣势" class="headerlink" title="1.7顺序储存结构和链式存储结构的优劣势"></a>1.7顺序储存结构和链式存储结构的优劣势</h3><p>​        <strong>顺序储存结构</strong>：利于查找O（1）O（1）插入和删除O（n），需要分配一段连续的储存空间，分大了浪费分小了容易溢出（数组）</p>
+<p>​        <strong>链式存储结构</strong> ：利于插入O（1）不利于查找O（n）（链表）</p>
+<p>​                    </p>
+<h2 id="2-栈与队列"><a href="#2-栈与队列" class="headerlink" title="2.栈与队列"></a>2.栈与队列</h2><h3 id="2-1什么是堆栈"><a href="#2-1什么是堆栈" class="headerlink" title="2.1什么是堆栈"></a>2.1什么是堆栈</h3><p>​                堆栈（Stack）：具有一定操作约束的线性表 只在一端（栈顶，Top）做 插入、删除</p>
+<p>​                插入数据：入栈（Push）  删除数据：出栈（Pop）  后入先出：Last In First Out（LIFO）</p>
+<p>​                类似与弹夹，先压入弹夹的子弹后发射，每次都是在弹夹的顶部添加或者发射子弹</p>
+<pre><code>         **操作集**： 1、Stack CreateStack( int MaxSize )： 生成空堆栈，其最大长度为MaxSize；
+</code></pre>
+<p>​                             2、int IsFull( Stack S, int MaxSize )：判断堆栈S是否已满；</p>
+<p>​                             3、void Push( Stack S, ElementType item )：将元素item压入堆栈；</p>
+<p>​                             4、int IsEmpty ( Stack S )：判断堆栈S是否为空；</p>
+<p>​                             5、ElementType Pop( Stack S )：删除并返回栈顶元素；</p>
+<h3 id="2-2栈的顺序存储实现"><a href="#2-2栈的顺序存储实现" class="headerlink" title="2.2栈的顺序存储实现"></a>2.2栈的顺序存储实现</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#define MaxSize &lt;储存数据元素的最大个数&gt;</span><br><span class="line">typedef struct SNode *Stack;</span><br><span class="line">struct SNode&#123;</span><br><span class="line">ElementType Data[MaxSize];</span><br><span class="line">int Top;</span><br><span class="line">&#125;;&#x2F;&#x2F;定义栈</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void Push( Stack PtrS, ElementType item )</span><br><span class="line">&#123;</span><br><span class="line"> if ( PtrS-&gt;Top &#x3D;&#x3D; MaxSize-1 ) &#123;</span><br><span class="line"> printf(“堆栈满”); return;</span><br><span class="line"> &#125;else &#123;</span><br><span class="line"> PtrS-&gt;Data[++(PtrS-&gt;Top)] &#x3D; item;</span><br><span class="line"> return;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210728161042957.png"></p>
+<p><strong>两栈共享空间</strong></p>
+<p> 两个相同类型的栈，可能第一个栈已经满了，但是第二个栈还是空的，如果将两个相同类型的栈合并在一起，可以节省一部分空间。</p>
+<p>数组有两个端点，分别为两个栈的栈底，第一个一个栈的栈底的位置为数组为0的地方(没有元素时top=-1)，另一个栈的栈底为数组下标为SIZE-1的位置(没有元素时top2=SIZE)，SIZE为数组的长度。</p>
+<p>两个栈如果增加元素，就是两端点向中间延伸。</p>
+<p>只要两个栈顶指针不碰面（top1+1=top2），元素就可以一直进栈。</p>
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210728204715578.png"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#define MaxSize &lt;存储数据元素的最大个数&gt;</span><br><span class="line">struct DStack &#123;</span><br><span class="line"> ElementType Data[MaxSize]; </span><br><span class="line"> int Top1; &#x2F;* 堆栈１的栈顶指针 *&#x2F; </span><br><span class="line"> int Top2; &#x2F;* 堆栈２的栈顶指针 *&#x2F;</span><br><span class="line">&#125; S;</span><br><span class="line">S.Top1 &#x3D; -1; </span><br><span class="line">S.Top2 &#x3D; MaxSize;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void Push( struct DStack *PtrS, ElementType item, int Tag )</span><br><span class="line">&#123; &#x2F;* Tag作为区分两个堆栈的标志，取值为1和2 *&#x2F;</span><br><span class="line"> if ( PtrS-&gt;Top2 – PtrS-&gt;Top1 &#x3D;&#x3D; 1) &#123; &#x2F;*堆栈满*&#x2F;</span><br><span class="line">printf(“堆栈满”); return ;</span><br><span class="line"> &#125;</span><br><span class="line"> if ( Tag &#x3D;&#x3D; 1 ) &#x2F;* 对第一个堆栈操作 *&#x2F;</span><br><span class="line"> PtrS-&gt;Data[++(PtrS-&gt;Top1)] &#x3D; item;</span><br><span class="line"> else &#x2F;* 对第二个堆栈操作 *&#x2F;</span><br><span class="line"> PtrS-&gt;Data[--(PtrS-&gt;Top2)] &#x3D; item;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ElementType Pop( struct DStack *PtrS, int Tag )</span><br><span class="line">&#123; &#x2F;* Tag作为区分两个堆栈的标志，取值为1和2 *&#x2F;</span><br><span class="line"> if ( Tag &#x3D;&#x3D; 1 ) &#123; &#x2F;* 对第一个堆栈操作 *&#x2F;</span><br><span class="line"> if ( PtrS-&gt;Top1 &#x3D;&#x3D; -1 ) &#123; &#x2F;*堆栈1空 *&#x2F;</span><br><span class="line"> printf(“堆栈1空”); return NULL;</span><br><span class="line"> &#125; else return PtrS-&gt;Data[(PtrS-&gt;Top1)--];</span><br><span class="line"> &#125; else &#123; &#x2F;* 对第二个堆栈操作 *&#x2F;</span><br><span class="line"> if ( PtrS-&gt;Top2 &#x3D;&#x3D; MaxSize ) &#123; &#x2F;*堆栈2空 *&#x2F;</span><br><span class="line"> printf(“堆栈2空”); return NULL;</span><br><span class="line"> &#125; else return PtrS-&gt;Data[(PtrS-&gt;Top2)++];</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-3栈的链式存储实现"><a href="#2-3栈的链式存储实现" class="headerlink" title="2.3栈的链式存储实现"></a>2.3栈的链式存储实现</h3><p>​    栈的链式存储结构实际上就是一个单链表，叫做链栈</p>
+<p>​    插入和删除操作只能在链栈的栈顶进行。栈顶指针Top在链表头部</p>
+<p>​    <img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210728205155077.png"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">typedef struct SNode *Stack;</span><br><span class="line">struct SNode&#123;</span><br><span class="line">ElementType Data;</span><br><span class="line">struct SNode *Next;</span><br><span class="line">&#125; ;</span><br><span class="line">Stack CreateStack() </span><br><span class="line">&#123; &#x2F;* 构建一个堆栈的头结点，返回指针 *&#x2F;</span><br><span class="line"> Stack S;</span><br><span class="line"> S &#x3D;(Stack)malloc(sizeof(struct SNode));</span><br><span class="line"> S-&gt;Next &#x3D; NULL;</span><br><span class="line"> return S;</span><br><span class="line">&#125;</span><br><span class="line">int IsEmpty(Stack S) </span><br><span class="line">&#123; &#x2F;*判断堆栈S是否为空，若为空函数返回整数1，否</span><br><span class="line">则返回0 *&#x2F;</span><br><span class="line">return ( S-&gt;Next &#x3D;&#x3D; NULL );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void Push( ElementType item, Stack S) </span><br><span class="line">&#123; &#x2F;* 将元素item压入堆栈S *&#x2F;</span><br><span class="line">struct SNode *TmpCell;</span><br><span class="line">TmpCell&#x3D;(struct SNode *)malloc(sizeof(struct SNode));</span><br><span class="line">TmpCell-&gt;Element &#x3D; item;</span><br><span class="line">TmpCell-&gt;Next &#x3D; S-&gt;Next;</span><br><span class="line">S-&gt;Next &#x3D; TmpCell;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ElementType Pop(Stack S)</span><br><span class="line">&#123; &#x2F;* 删除并返回堆栈S的栈顶元素 *&#x2F;</span><br><span class="line"> struct SNode *FirstCell;</span><br><span class="line">ElementType TopElem;</span><br><span class="line">if( IsEmpty( S ) ) &#123;</span><br><span class="line">printf(“堆栈空”); return NULL;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">FirstCell &#x3D; S-&gt;Next; </span><br><span class="line">S-&gt;Next &#x3D; FirstCell-&gt;Next;</span><br><span class="line">TopElem &#x3D; FirstCell -&gt;Element;</span><br><span class="line">free(FirstCell);</span><br><span class="line">return TopElem;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-4什么是队列"><a href="#2-4什么是队列" class="headerlink" title="2.4什么是队列"></a>2.4什么是队列</h3><p>队列(Queue)：具有一定操作约束的线性表 </p>
+<p> 插入和删除操作：只能在一端插入，而在另一端删除。</p>
+<p>数据插入：入队列（AddQ）  数据删除：出队列（DeleteQ） 先来先服务 先进先出：FIFO（类似于排队肯定是不能插队的那种）</p>
+<p><strong>入队列</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">struct Node &#123;</span><br><span class="line">	int Data;</span><br><span class="line">	struct Node* Next;</span><br><span class="line">&#125;;</span><br><span class="line">struct QNode &#123; &#x2F;* 链队列结构   头结点*&#x2F;</span><br><span class="line">	struct Node* rear; &#x2F;* 指向队尾结点 *&#x2F;</span><br><span class="line">	struct Node* front; &#x2F;* 指向队头结点 *&#x2F;</span><br><span class="line">&#125;;</span><br><span class="line">typedef struct QNode* Queue;</span><br><span class="line">Queue PtrQ;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void AddQ1(Queue PtrQ, int item)</span><br><span class="line">&#123;</span><br><span class="line">	Node *s &#x3D; new Node ;</span><br><span class="line">	s-&gt;Data &#x3D; item;</span><br><span class="line">	s-&gt;Next &#x3D; NULL;</span><br><span class="line">	PtrQ-&gt;rear-&gt;Next &#x3D; s;&#x2F;&#x2F;把新结点赋给原队尾结点的后继,如下图1</span><br><span class="line">	PtrQ-&gt;rear &#x3D; s;&#x2F;&#x2F;把当前的s设为队尾结点，如下图2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210731174414169.png"></p>
+<p><strong>出队列</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int DeleteQ(Queue PtrQ)</span><br><span class="line">&#123;</span><br><span class="line">	if (PtrQ-&gt;front &#x3D;&#x3D; PtrQ-&gt;rear)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; &quot;队列已空&quot; &lt;&lt; endl;</span><br><span class="line">		return -1;</span><br><span class="line">	&#125;</span><br><span class="line">	else &#123;</span><br><span class="line">		int result;</span><br><span class="line">		Node *a;</span><br><span class="line">		 a&#x3D;PtrQ-&gt;front-&gt;Next;&#x2F;&#x2F;将要出队列的队头结点暂存在a中，如图1</span><br><span class="line">		 result &#x3D; a-&gt;Data;&#x2F;&#x2F;将队头结点的值交给result，方便返回值</span><br><span class="line">		 PtrQ-&gt;front-&gt;Next &#x3D; a-&gt;Next;&#x2F;&#x2F;将原队头结点的后继赋给队头结点，如图2</span><br><span class="line">		 if (a &#x3D;&#x3D; PtrQ-&gt;rear)&#x2F;&#x2F;若队头是队尾，即队列删除后为空</span><br><span class="line">		 &#123;</span><br><span class="line">			 PtrQ-&gt;rear &#x3D; PtrQ-&gt;front;&#x2F;&#x2F;将队尾指向队尾所在结点，即头结点，如图3</span><br><span class="line">		 &#125;</span><br><span class="line">		 free(a);</span><br><span class="line">		 return result;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210731200653252.png"></p>
+<h2 id="3-树"><a href="#3-树" class="headerlink" title="3.树"></a>3.树</h2><h3 id="3-1树的定义"><a href="#3-1树的定义" class="headerlink" title="3.1树的定义"></a>3.1树的定义</h3><p>​        </p>
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210808100934343.png"></p>
+<p><strong>度</strong>：结点拥有的子树数称为结点的度。</p>
+<p>​        度为0的结点称为终端结点或者叶节点。</p>
+<p>​        不为0称为分支节点或者非终端结点。</p>
+<p>​        除了根节点以外，分支节点也称为内部结点</p>
+<p>​        树的度是树内各结点的度的最大值</p>
+<p><strong>结点间的关系</strong>：结点的子树的根称为该结点的儿子，该结点为孩子的双亲，同一个双亲的孩子之间互为兄弟（类似于家谱）</p>
+<p><strong>结点的层次</strong></p>
+<p>根为第一次，根的孩子为第二层…….，树的结点的最大层次称为树的深度或高度。</p>
+<p><strong>森林</strong></p>
+<p>m个互不相交的树的集合</p>
+<p><strong>树的表示法</strong></p>
+<p><strong>1.双亲表示法</strong>，每个结点记录了其双亲的位置</p>
+<p><strong>2.孩子表示法</strong>，每个结点有多个指针域，每个指针域指向一棵子树的根结点（用同一类型结点，如果各节点度相差很大时浪费空间。用不同类型不同指针域个数的结点则会增加复杂度）</p>
+<p><strong>3.孩子兄弟表示法</strong> 设置两个结点一个指向第一个孩子，另一个指向其右兄弟（好处，将一棵复杂的树变为二叉树）</p>
+<h3 id="3-2二叉树的定义"><a href="#3-2二叉树的定义" class="headerlink" title="3.2二叉树的定义"></a>3.2二叉树的定义</h3><p>​    <img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210808102741180.png"></p>
+<p><strong>特点</strong> 每个结点最大有两个子树，左子树和右子树有顺序不能颠倒</p>
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210808111246627.png"></p>
+<h3 id="3-3二叉树的性质"><a href="#3-3二叉树的性质" class="headerlink" title="3.3二叉树的性质"></a><strong>3.3二叉树的性质</strong></h3><p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210808111340944.png"></p>
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210808111405168.png"></p>
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210808111430793.png"></p>
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210808111446400.png"></p>
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210808111456968.png"></p>
+<h3 id="3-4二叉树的顺序存储结构"><a href="#3-4二叉树的顺序存储结构" class="headerlink" title="3.4二叉树的顺序存储结构"></a>3.4二叉树的顺序存储结构</h3><p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210808112716177.png"></p>
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210808112744090.png"></p>
+<p>为了避免对存储空间的浪费，顺序存储结构一般只用于完全二叉树</p>
+<h3 id="3-5二叉树的链式存储结构"><a href="#3-5二叉树的链式存储结构" class="headerlink" title="3.5二叉树的链式存储结构"></a>3.5二叉树的链式存储结构</h3><p>一个结点包含一个数据域和两个指针域</p>
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210808113045622.png"></p>
+<h3 id="3-6二叉树的遍历"><a href="#3-6二叉树的遍历" class="headerlink" title="3.6二叉树的遍历"></a>3.6<strong>二叉树的遍历</strong></h3><p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210808121431516.png"></p>
+<h4 id="3-61前序遍历"><a href="#3-61前序遍历" class="headerlink" title="3.61前序遍历"></a>3.61前序遍历</h4><p>​        若二叉树为空则空操作返回，否则先访问根节点再前序遍历左子树，再前序遍历右子树，如图<strong>ABDGHCEIF</strong></p>
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210808121643937.png"></p>
+<p>递归实现前序遍历</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void InorderTraversal( BinTree BT )</span><br><span class="line">&#123;</span><br><span class="line">    if( BT ) &#123;</span><br><span class="line">        InorderTraversal( BT-&gt;Left );</span><br><span class="line">        &#x2F;* 此处假设对BT结点的访问就是打印数据 *&#x2F;</span><br><span class="line">        printf(&quot;%d &quot;, BT-&gt;Data); &#x2F;* 假设数据为整型 *&#x2F;</span><br><span class="line">        InorderTraversal( BT-&gt;Right );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void PreorderTraversal( BinTree BT )</span><br><span class="line">&#123;</span><br><span class="line">    if( BT ) &#123;</span><br><span class="line">        printf(&quot;%d &quot;, BT-&gt;Data );</span><br><span class="line">        PreorderTraversal( BT-&gt;Left );</span><br><span class="line">        PreorderTraversal( BT-&gt;Right );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可使用堆栈的方法不用递归来实现该遍历</p>
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210818170532554.png"></p>
+<h4 id="3-62中序遍历"><a href="#3-62中序遍历" class="headerlink" title="3.62中序遍历"></a>3.62中序遍历</h4><p>​    若二叉树为空则空操作返回，否则从根节开始（根节点尚未访问），中序遍历根节点的左子树，访问根节点，再中序遍历根结点右子树。如图<strong>GDHBAEICF</strong></p>
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210808122021425.png"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void InorderTraversal( BinTree BT )</span><br><span class="line">&#123;</span><br><span class="line">    if( BT ) &#123;</span><br><span class="line">        InorderTraversal( BT-&gt;Left );</span><br><span class="line">        &#x2F;* 此处假设对BT结点的访问就是打印数据 *&#x2F;</span><br><span class="line">        printf(&quot;%d &quot;, BT-&gt;Data); &#x2F;* 假设数据为整型 *&#x2F;</span><br><span class="line">        InorderTraversal( BT-&gt;Right );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可使用堆栈的方法不用递归来实现该遍历。</p>
+<p>如图先向堆栈中放入ABDG（直到左边无元素）再出栈GD,进栈H，出栈H B A,进栈C E I，出栈I E C，进栈F，出栈F。</p>
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210818162925853.png"></p>
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210818170457556.png"></p>
+<h4 id="3-63后序遍历"><a href="#3-63后序遍历" class="headerlink" title="3.63后序遍历"></a>3.63后序遍历</h4><p>若二叉树为空则空操作返回，否则从根节开始（根节点尚未访问），中序遍历根节点的左子树，再中序遍历根结点右子树，访问根节点。如图<strong>GHDBIEFCA</strong></p>
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210808122400491.png"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void PostorderTraversal( BinTree BT )</span><br><span class="line">&#123;</span><br><span class="line">    if( BT ) &#123;</span><br><span class="line">        PostorderTraversal( BT-&gt;Left );</span><br><span class="line">        PostorderTraversal( BT-&gt;Right );</span><br><span class="line">        printf(&quot;%d &quot;, BT-&gt;Data);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-64层序遍历"><a href="#3-64层序遍历" class="headerlink" title="3.64层序遍历"></a>3.64层序遍历</h4><p>若二叉树为空则空操作返回，否则从树的第一层（根结点）开始访问，从上而下的遍历，在同一层中先左后右对结点逐个访问</p>
+<p><strong>ABCDEFGHI</strong></p>
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210808122756410.png"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void LevelorderTraversal ( BinTree BT )</span><br><span class="line">&#123; </span><br><span class="line">    Queue Q; </span><br><span class="line">    BinTree T;</span><br><span class="line"></span><br><span class="line">    if ( !BT ) return; &#x2F;* 若是空树则直接返回 *&#x2F;</span><br><span class="line">    </span><br><span class="line">    Q &#x3D; CreatQueue(); &#x2F;* 创建空队列Q *&#x2F;</span><br><span class="line">    AddQ( Q, BT );</span><br><span class="line">    while ( !IsEmpty(Q) ) &#123;</span><br><span class="line">        T &#x3D; DeleteQ( Q );</span><br><span class="line">        printf(&quot;%d &quot;, T-&gt;Data); &#x2F;* 访问取出队列的结点 *&#x2F;</span><br><span class="line">        if ( T-&gt;Left )   AddQ( Q, T-&gt;Left );</span><br><span class="line">        if ( T-&gt;Right )  AddQ( Q, T-&gt;Right );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-7二叉树的典型应用"><a href="#3-7二叉树的典型应用" class="headerlink" title="3.7二叉树的典型应用"></a>3.7二叉树的典型应用</h3><p>根据中序遍历和另一种遍历的序列结果，可以确定二叉树的形状</p>
+<p><img src="C:\Users\11855\AppData\Roaming\Typora\typora-user-images\image-20210821173439010.png"></p>
+<p>例如：先序序列 A B C D E F G H I J</p>
+<p>​            中序序列 C B E D A H G I J F</p>
+<p>所以根节点为 A，再在中序序列中找到A，A左边的为以A为结果的左子树，右边为其右子树，然后再递归看BCDEFGIJ;</p>
+<h3 id="3-8二叉搜索树"><a href="#3-8二叉搜索树" class="headerlink" title="3.8二叉搜索树"></a>3.8二叉搜索树</h3><h1 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a><strong>未完待续</strong></h1>]]></content>
+  </entry>
 </search>
